@@ -3,6 +3,7 @@ const showList = document.querySelector(".showList");
 const buttonGroup = document.querySelector(".button-group");
 const search = document.querySelector(".search");
 const input = document.querySelector("#crop");
+const select = document.querySelector("#js-select");
 let data = [];
 
 // 串接 API & 顯示資料
@@ -73,3 +74,30 @@ search.addEventListener("click",(e)=>{
         renderData(filterData);
     }
 })
+
+// 排序資料
+select.addEventListener("change",(e)=>{
+    switch (e.target.value) {
+        case "依上價排序":
+            selectChange("上價");
+            break;
+        case "依中價排序":
+            selectChange("中價");
+            break;
+        case "依下價排序":
+            selectChange("下價");
+            break;
+        case "依平均價排序":
+            selectChange("平均價");
+            break;
+        case "依交易量排序":
+            selectChange("交易量");
+            break;
+        default:
+    }
+})
+
+function selectChange(value){
+    data.sort((a,b)=> a[value]-b[value]);
+    renderData(data);
+}
