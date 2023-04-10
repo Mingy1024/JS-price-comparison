@@ -4,6 +4,7 @@ const buttonGroup = document.querySelector(".button-group");
 const search = document.querySelector(".search");
 const input = document.querySelector("#crop");
 const select = document.querySelector("#js-select");
+const sortAdvanced = document.querySelector(".js-sort-advanced");
 let data = [];
 
 // 串接 API & 顯示資料
@@ -101,3 +102,17 @@ function selectChange(value){
     data.sort((a,b)=> a[value]-b[value]);
     renderData(data);
 }
+
+// 進階排序資料
+sortAdvanced.addEventListener("click",(e)=>{
+    if(e.target.nodeName === "I"){
+        let sortPrice = e.target.dataset.price;
+        let sortCaret = e.target.dataset.sort;
+        if(sortCaret === "up"){
+            data.sort((a,b)=> b[sortPrice]-a[sortPrice]);
+        }else{
+            data.sort((a,b)=> a[sortPrice]-b[sortPrice]);
+        }
+        renderData(data);
+    }
+})
