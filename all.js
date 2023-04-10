@@ -1,6 +1,8 @@
 const url = "https://hexschool.github.io/js-filter-data/data.json";
 const showList = document.querySelector(".showList");
 const buttonGroup = document.querySelector(".button-group");
+const search = document.querySelector(".search");
+const input = document.querySelector("#crop");
 let data = [];
 
 // 串接 API & 顯示資料
@@ -48,5 +50,22 @@ buttonGroup.addEventListener("click",(e)=>{
        })
        e.target.classList.add("active");
        renderData(filterData);
+    }
+})
+
+// 搜尋資料
+search.addEventListener("click",(e)=>{
+    if(input.value.trim() === ""){
+        alert("請輸入作物名稱！");
+        return;
+    }
+    let filterData  = [];
+    // filterData = data.filter((item)=> item["作物名稱"] === input.value.trim());
+    filterData = data.filter((item)=> item["作物名稱"].match(input.value));
+    
+    if(filterData.length === 0){
+        showList.innerHTML = '<tr><td colspan="6" class="text-center p-3">查詢不到交易資訊QQ</td></tr>';
+    }else{
+        renderData(filterData);
     }
 })
