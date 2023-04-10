@@ -60,8 +60,12 @@ search.addEventListener("click",(e)=>{
         return;
     }
     let filterData  = [];
-    // filterData = data.filter((item)=> item["作物名稱"] === input.value.trim());
-    filterData = data.filter((item)=> item["作物名稱"].match(input.value));
+    filterData = data.filter((item)=>{
+        // 篩選掉作物名稱為 null 的 item，避免使用 .match 時報錯
+        if(item["作物名稱"] !== null){
+            return item["作物名稱"].match(input.value);
+        }
+    });
     
     if(filterData.length === 0){
         showList.innerHTML = '<tr><td colspan="6" class="text-center p-3">查詢不到交易資訊QQ</td></tr>';
