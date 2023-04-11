@@ -58,19 +58,31 @@ buttonGroup.addEventListener("click",(e)=>{
 
 // 搜尋資料
 search.addEventListener("click",(e)=>{
+    searchFunc();
+})
+
+// 鍵盤事件 - Enter 
+input.addEventListener("keyup",(e)=>{
+    if(e.key === "Enter"){
+        searchFunc();
+    }
+})
+
+function searchFunc(){
     if(input.value.trim() === ""){
         alert("請輸入作物名稱！");
         return;
     }
     let filterData  = [];
     filterData = data.filter((item)=> item["作物名稱"].match(input.value));
-    
+    input.value = "";
+
     if(filterData.length === 0){
         showList.innerHTML = '<tr><td colspan="6" class="text-center p-3">查詢不到交易資訊QQ</td></tr>';
     }else{
         renderData(filterData);
     }
-})
+}
 
 // 排序資料
 select.addEventListener("change",(e)=>{
