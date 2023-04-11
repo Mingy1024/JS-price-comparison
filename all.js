@@ -4,6 +4,7 @@ const buttonGroup = document.querySelector(".button-group");
 const search = document.querySelector(".search");
 const input = document.querySelector("#crop");
 const select = document.querySelector("#js-select");
+const mobileSelect =document.querySelector("#js-moblie-select");
 const sortAdvanced = document.querySelector(".js-sort-advanced");
 let data = [];
 let filterData = [];
@@ -90,41 +91,29 @@ function searchFunc(){
 
 // 排序資料
 select.addEventListener("change",(e)=>{
-    switch (e.target.value) {
-        case "依上價排序":
-            selectChange("上價");
-            break;
-        case "依中價排序":
-            selectChange("中價");
-            break;
-        case "依下價排序":
-            selectChange("下價");
-            break;
-        case "依平均價排序":
-            selectChange("平均價");
-            break;
-        case "依交易量排序":
-            selectChange("交易量");
-            break;
-        default:
-    }
+    selectChange(e.target.value,"up");
 })
-
-function selectChange(value){
-    filterData.sort((a,b)=> a[value]-b[value]);
-    renderData();
-}
+mobileSelect.addEventListener("change",(e)=>{
+    selectChange(e.target.value,"up");
+})
 
 // 進階排序資料
 sortAdvanced.addEventListener("click",(e)=>{
     if(e.target.nodeName === "I"){
         let sortPrice = e.target.dataset.price;
         let sortCaret = e.target.dataset.sort;
-        if(sortCaret === "up"){
-            filterData.sort((a,b)=> b[sortPrice]-a[sortPrice]);
-        }else{
-            filterData.sort((a,b)=> a[sortPrice]-b[sortPrice]);
-        }
-        renderData();
+        selectChange(sortPrice,sortCaret);
     }
 })
+
+function selectChange(sortPrice,sortCaret){
+    switch (sortCaret){
+        case "up":
+            filterData.sort((a,b)=> b[sortPrice]-a[sortPrice]);
+            break;
+        case "down":
+            filterData.sort((a,b)=> a[sortPrice]-b[sortPrice]);
+            break;
+    }
+    renderData();
+}
