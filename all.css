@@ -53,11 +53,17 @@ body {
     padding: 0.75rem;
   }
 }
+.btn:hover {
+  background-color: #604f14;
+}
 .btn-type {
   padding: 0.5rem 2.5rem;
   color: #2a2a2a;
   letter-spacing: 1px;
   margin: 0 0.625rem 1.25rem 0;
+}
+.btn.active {
+  background: #f8d45a;
 }
 .btn-type:hover,
 .btn-type:active {

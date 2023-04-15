@@ -6,6 +6,7 @@ const input = document.querySelector("#crop");
 const select = document.querySelector("#js-select");
 const mobileSelect =document.querySelector("#js-moblie-select");
 const sortAdvanced = document.querySelector(".js-sort-advanced");
+const showResult = document.querySelector(".show-result");
 let data = [];
 let filterData = [];
 let type = "";
@@ -86,6 +87,7 @@ function searchFunc(){
     }
     type = "search";
     getList();
+    showResult.innerHTML = `以下為關鍵字「${input.value}」的搜尋結果`;
     input.value = "";
 }
 
@@ -102,6 +104,7 @@ sortAdvanced.addEventListener("click",(e)=>{
     if(e.target.nodeName === "I"){
         let sortPrice = e.target.dataset.price;
         let sortCaret = e.target.dataset.sort;
+        select.value = sortPrice;
         selectChange(sortPrice,sortCaret);
     }
 })
