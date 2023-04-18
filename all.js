@@ -7,9 +7,11 @@ const select = document.querySelector("#js-select");
 const mobileSelect =document.querySelector("#js-moblie-select");
 const sortAdvanced = document.querySelector(".js-sort-advanced");
 const showResult = document.querySelector(".show-result");
+const selectDefault = document.querySelector(".selectDefault");
 let data = [];
 let filterData = [];
 let type = "";
+let selectOption = "";
 
 // 串接 API & 顯示資料
 function getData(){
@@ -58,14 +60,17 @@ function getList(){
 // 篩選資料
 buttonGroup.addEventListener("click",(e)=>{
     if(e.target.type === "button"){
-       type = e.target.dataset.type;
-       let sort = document.querySelectorAll(".button-group button");
-       sort.forEach((item)=>{
-        item.classList.remove("active");
-       })
-       e.target.classList.add("active");
-       getList();
+        type = e.target.dataset.type;
+        let sort = document.querySelectorAll(".button-group button");
+        sort.forEach((item)=>{
+            item.classList.remove("active");
+        })
+        e.target.classList.add("active");
+        getList();
     }
+    showResult.innerHTML = "";
+    selectDefault.removeAttribute("selected");
+    selectDefault.setAttribute("selected","");
 })
 
 // 搜尋資料
